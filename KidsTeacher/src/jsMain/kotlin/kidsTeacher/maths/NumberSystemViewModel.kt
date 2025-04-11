@@ -2,6 +2,7 @@ package kidsTeacher.maths
 
 import com.bootstrap.colors.ThemedColor
 import com.bootstrap.colors.backgroundColor
+import com.bootstrap.colors.hexBgColor
 import com.bootstrap.colors.textColor
 import com.bootstrap.components.cards.Card
 import com.bootstrap.components.layout.Column
@@ -65,7 +66,7 @@ class NumberSystemViewModel {
             val data = Json.decodeFromString<NumberDictionary>(numberData)
             setContent("number-system-content") {
                 Row {
-                    Column(3, modifier = Modifier.spaced(all = 2)) {
+                    Column(3, modifier = Modifier.hexBgColor("#77FF33").spaced(all = 2)) {
                         Card(
                             title = "Numbers from 1 to 10, in English",
                             modifier = Modifier.backgroundColor(ThemedColor.INFO)

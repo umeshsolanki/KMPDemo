@@ -1,6 +1,7 @@
 package com.bootstrap.modifier
 
-import io.ktor.util.reflect.*
+import kotlinx.html.CoreAttributeGroupFacade
+import kotlinx.html.style
 
 interface Modifier {
     companion object : Modifier
@@ -14,15 +15,23 @@ fun Modifier.appendClass(clazz: String): Modifier {
 }
 
 fun Modifier.appendStyle(key: StyleKey, value: Any): Modifier {
-    return (this as? ModifierImpl)?.addStyle(key, value) ?: ModifierImpl("")
+    return (this as? ModifierImpl)?.addStyle(key, value) ?: ModifierImpl("").addStyle(key, value)
 }
-
 
 fun Modifier.finalize(clazz: String): String {
     if (clazz.isBlank()) {
         return classes
     }
     return (this as? ModifierImpl)?.addClass(clazz)?.classes ?: ModifierImpl(clazz).classes
+}
+
+fun CoreAttributeGroupFacade.applyModifier(modifier: Modifier) {
+    modifier.style?.let {
+        if (it.isNotBlank()) {
+//            println("Setting style= $it")
+            style = it
+        }
+    }
 }
 
 fun Modifier.padding(all: Int): Modifier {
@@ -91,13 +100,16 @@ val Modifier.style: String?
         val finalStyle = buildString {
             styles.forEach {
                 append(it.first.value)
-                if (it.second.instanceOf(String::class)) {
-                    append("'${it.second}'")
-                } else {
-                    append(it.second)
-                }
+                append(":")
+//                if (it.second.instanceOf(String::class)) {
+//                    append(it.second)
+//                } else {
+                append(it.second)
+//                }
+                append(";")
             }
         }
+        println("Final Style: $finalStyle")
         return finalStyle
     }
 
@@ -133,7 +145,7 @@ class ModifierImpl(classes: String) : Modifier {
     }
 
     fun addStyle(name: StyleKey, value: Any): ModifierImpl {
-//        println("Adding style $name: $value")
+        println("Adding style $name: $value")
         _styles.add(name to value)
         return this
     }

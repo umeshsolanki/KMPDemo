@@ -2,6 +2,7 @@ package com.bootstrap.components.form.components
 
 import com.bootstrap.modifier.Modifier
 import com.bootstrap.modifier.appendClass
+import com.bootstrap.modifier.applyModifier
 import com.bootstrap.modifier.finalize
 import kotlinx.html.*
 
@@ -28,6 +29,7 @@ inline fun FlowContent.InputField(
 
     val classes = modifier1.finalize("form-control")
     input(classes = classes, type = type) {
+        applyModifier(modifier1)
         block()
     }
 }
@@ -61,6 +63,7 @@ inline fun FlowContent.TextArea(
 ) {
     val classes = modifier.finalize("form-control")
     textArea(classes = classes) {
+        applyModifier(modifier)
         block()
     }
 }

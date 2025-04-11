@@ -2,6 +2,7 @@ package com.bootstrap.components.layout
 
 import com.bootstrap.modifier.Modifier
 import com.bootstrap.modifier.appendClass
+import com.bootstrap.modifier.applyModifier
 import com.bootstrap.modifier.classes
 import kotlinx.html.DIV
 import kotlinx.html.FlowContent
@@ -20,6 +21,7 @@ inline fun FlowContent.Row(
         modifier1 = modifier1.alignVertically(vAlignment)
     }
     div(modifier1.appendClass("row").classes) {
+        applyModifier(modifier1)
         block()
     }
 }
@@ -33,6 +35,7 @@ inline fun FlowContent.Container(
         "container"
     }
     div(modifier.appendClass(classes).classes) {
+        applyModifier(modifier)
         block()
     }
 }
@@ -51,6 +54,7 @@ inline fun FlowContent.Column(
         modifier
     }
     div(modifier1.appendClass("col$sizeClass").classes) {
+        applyModifier(modifier1)
         block()
     }
 }
