@@ -32,6 +32,7 @@ fun main() {
         }
         routing {
             staticResources("js", "/js")
+            staticResources("css", "/css")
             HomePageController(this)
             KidsLearningController(this)
             NumberSystemController(this)

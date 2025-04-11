@@ -11,6 +11,10 @@ fun Modifier.height(height: Height): Modifier {
     return appendClass("h-${height.value}")
 }
 
+fun Modifier.style(width: Int): Modifier {
+    return appendClass("w-${width}%")
+}
+
 enum class Width(val value: String) {
     W_25("25"), W_50("50"), W_75("75"), W_100("100"), W_AUTO("auto"), W_0("0")
 }

@@ -1,5 +1,7 @@
 package com.bootstrap.modifier
 
+import io.ktor.util.reflect.*
+
 interface Modifier {
     companion object : Modifier
 }
@@ -8,14 +10,19 @@ fun Modifier.appendClass(clazz: String): Modifier {
     if (clazz.isBlank()) {
         return this
     }
-    return (this as? CssModifier)?.addClass(clazz) ?: CssModifier(clazz)
+    return (this as? ModifierImpl)?.addClass(clazz) ?: ModifierImpl(clazz)
 }
+
+fun Modifier.appendStyle(key: StyleKey, value: Any): Modifier {
+    return (this as? ModifierImpl)?.addStyle(key, value) ?: ModifierImpl("")
+}
+
 
 fun Modifier.finalize(clazz: String): String {
     if (clazz.isBlank()) {
         return classes
     }
-    return (this as? CssModifier)?.addClass(clazz)?.classes ?: CssModifier(clazz).classes
+    return (this as? ModifierImpl)?.addClass(clazz)?.classes ?: ModifierImpl(clazz).classes
 }
 
 fun Modifier.padding(all: Int): Modifier {
@@ -70,7 +77,7 @@ fun Modifier.visibility(visible: Boolean): Modifier {
 
 val Modifier.classes: String
     get() {
-        val classes = (this as? CssModifier)?.classes
+        val classes = (this as? ModifierImpl)?.clazzes
         return if (classes.isNullOrBlank()) {
             ""
         } else {
@@ -78,25 +85,72 @@ val Modifier.classes: String
         }
     }
 
-class CssModifier(classes: String) : Modifier {
+val Modifier.style: String?
+    get() {
+        val styles = (this as? ModifierImpl)?._styles ?: return null
+        val finalStyle = buildString {
+            styles.forEach {
+                append(it.first.value)
+                if (it.second.instanceOf(String::class)) {
+                    append("'${it.second}'")
+                } else {
+                    append(it.second)
+                }
+            }
+        }
+        return finalStyle
+    }
+
+//fun Modifier.styled(builder: CssBuilder.() -> Unit): Modifier {
+//    return StyleModifier(value)
+//}
+//
+//class StyleModifier(val value: StyledElement.() -> Unit) : Modifier {
+//
+//    fun apply(element: StyledElement) {
+//        ruleSet {
+//            element.declarations
+//        }
+//    }
+//}
+
+enum class StyleKey(val value: String) {
+    BACKGROUND_COLOR("background-color"), COLOR("color"), TEXT_TRANSFORM("text-transform"), LINE_HEIGHT("line-height"), MARGIN(
+        "margin"
+    ),
+    PADDING(
+        "padding"
+    )
+}
+
+class ModifierImpl(classes: String) : Modifier {
     private var classList: MutableList<String?> = mutableListOf()
+    var _styles: MutableList<Pair<StyleKey, Any>> = mutableListOf()
 
     init {
 //        println("init")
         addClass(classes)
     }
 
-    fun addClass(value: String): CssModifier {
+    fun addStyle(name: StyleKey, value: Any): ModifierImpl {
+//        println("Adding style $name: $value")
+        _styles.add(name to value)
+        return this
+    }
+
+    fun addClass(value: String): ModifierImpl {
 //        println("Adding class $value")
         classList.add(value)
         return this
     }
 
-    val classes: String
+    internal val clazzes: String
         get() {
 //            println("Getting classes: {${classList.size}}")
             return classList.joinToString(" ")
         }
+//
+
 }
 
 
