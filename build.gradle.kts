@@ -62,7 +62,11 @@ kotlin {
 //                // sqllin-driver
 //                implementation("com.ctrip.kotlin:sqllin-driver:$sqllinVersion")
                 implementation(project(":Common"))
-                implementation(project(":KidsTeacher"))
+                api(project(":KidsTeacher"))
+                implementation(project(":Hindi"))
+                implementation(project(":English"))
+                implementation(project(":Maths"))
+                implementation(project(":TTS"))
 
                 implementation("io.ktor:ktor-client-encoding:$ktor_version")
                 implementation("org.jetbrains.kotlin:kotlin-stdlib:2.1.10")
@@ -80,7 +84,11 @@ kotlin {
         val jsMain by getting {
             dependencies {
                 implementation(project(":Common"))
-                implementation(project(":KidsTeacher"))
+                api(project(":KidsTeacher"))
+                implementation(project(":Hindi"))
+                implementation(project(":English"))
+                implementation(project(":Maths"))
+                implementation(project(":TTS"))
 
 //                implementation("org.jetbrains.kotlinx:kotlinx-html:$html_version")
 //                implementation("org.jetbrains.kotlin-wrappers:kotlin-css:1.0.0-pre.457")
@@ -94,6 +102,11 @@ kotlin {
             dependencies {
                 implementation(project(":Common"))
                 implementation(project(":KidsTeacher"))
+                implementation(project(":Hindi"))
+                implementation(project(":English"))
+                implementation(project(":Maths"))
+                implementation(project(":TTS"))
+
 //                implementation(browserDist.outgoing)
 //                implementation("com.aayushatharva.brotli4j:brotli4j:1.18.0") // Add the correct version
 //                implementation("com.aayushatharva.brotli4j:native-osx-aarch64:1.18.0") // For macOS

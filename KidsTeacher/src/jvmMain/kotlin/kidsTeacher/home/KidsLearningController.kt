@@ -40,27 +40,24 @@ class KidsLearningController(route: Route) {
                             vAlignment = VerticalAlignment.CENTER
                         ) {
                             Column(alignment = VerticalAlignment.CENTER) {
-                                a("/numbers/system", classes = "text-decoration-none") {
-                                    Card(title = "Number System") {
-                                        +"Number System"
+                                a("/maths/home", classes = "text-decoration-none") {
+                                    Card(title = "Maths") {
+                                        +"Maths"
                                     }
                                 }
                             }
                             Column {
-                                a("/english/alphabet", classes = "text-decoration-none") {
-                                    Card(title = "English Alphabet") {
-                                        +"English Alphabet"
+                                a("/en/home", classes = "text-decoration-none") {
+                                    Card(title = "English") {
+                                        +"English"
                                     }
                                 }
                             }
                             Column {
-                                Card(title = "Word Meanings") {
-                                    +"Word Meanings"
-                                }
-                            }
-                            Column {
-                                Card(title = "Hindi Varnmala") {
-                                    +"Hindi Varnmala"
+                                a("/hi/home", classes = "text-decoration-none") {
+                                    Card(title = "Hindi") {
+                                        +"Hindi"
+                                    }
                                 }
                             }
                         }

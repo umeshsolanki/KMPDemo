@@ -17,6 +17,6 @@ inline fun HEAD.addBootstrapAndCommon(crossinline content: HEAD.() -> Unit) {
     ) {
 //        attributes["integrity"] = "sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
     }
-    script("/js/Common.js") {}
+    script(src = "/js/Common.js") {}
     content()
 }

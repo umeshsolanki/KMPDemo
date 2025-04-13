@@ -11,7 +11,7 @@ fun Modifier.height(height: Height): Modifier {
     return appendClass("h-${height.value}")
 }
 
-fun Modifier.style(width: Int): Modifier {
+fun Modifier.width(width: Int): Modifier {
     return appendClass("w-${width}%")
 }
 

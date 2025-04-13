@@ -4,3 +4,7 @@ plugins {
 rootProject.name = "KMPDemo"
 include("KidsTeacher")
 include("Common")
+include("Hindi")
+include("English")
+include("Maths")
+include("TTS")

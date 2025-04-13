@@ -64,6 +64,7 @@ kotlin {
 //                implementation("com.ctrip.kotlin:sqllin-driver:$sqllinVersion")
 
                 implementation(project(":Common"))
+                implementation(project(":TTS"))
                 implementation("io.ktor:ktor-client-encoding:$ktor_version")
                 implementation("org.jetbrains.kotlin:kotlin-stdlib:2.1.10")
                 implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:${kotlinx_serialization}")
@@ -80,6 +81,7 @@ kotlin {
         val jsMain by getting {
             dependencies {
                 implementation(project(":Common"))
+                implementation(project(":TTS"))
 
 //                implementation("org.jetbrains.kotlinx:kotlinx-html:$html_version")
 //                implementation("org.jetbrains.kotlin-wrappers:kotlin-css:1.0.0-pre.457")

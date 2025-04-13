@@ -10,8 +10,9 @@ import io.ktor.server.plugins.cors.routing.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import io.ktor.server.websocket.*
+import kidsTeacher.english.EnglishHomeController
 import kidsTeacher.home.KidsLearningController
-import kidsTeacher.numbers.NumberSystemController
+import kidsTeacher.math.numbers.MathsController
 import kotlinx.css.CssBuilder
 import org.hitvaani.css.CssController
 import org.hitvaani.home.CrawlerController
@@ -35,7 +36,10 @@ fun main() {
             staticResources("css", "/css")
             HomePageController(this)
             KidsLearningController(this)
-            NumberSystemController(this)
+
+            MathsController(this)
+            EnglishHomeController(this)
+
             CrawlerController(this)
             AutoProxyController(this)
             CssController().init(this)

@@ -97,6 +97,9 @@ val Modifier.classes: String
 val Modifier.style: String?
     get() {
         val styles = (this as? ModifierImpl)?._styles ?: return null
+        if (styles.isEmpty()) {
+            return null
+        }
         val finalStyle = buildString {
             styles.forEach {
                 append(it.first.value)
