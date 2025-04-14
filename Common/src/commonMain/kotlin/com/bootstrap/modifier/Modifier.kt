@@ -1,5 +1,6 @@
 package com.bootstrap.modifier
 
+import kotlinx.html.CommonAttributeGroupFacade
 import kotlinx.html.CoreAttributeGroupFacade
 import kotlinx.html.style
 
@@ -18,6 +19,10 @@ fun Modifier.appendStyle(key: StyleKey, value: Any): Modifier {
     return (this as? ModifierImpl)?.addStyle(key, value) ?: ModifierImpl("").addStyle(key, value)
 }
 
+fun Modifier.appendAttr(key: String, value: Any): Modifier {
+    return (this as? ModifierImpl)?.addAttribute(key, value) ?: ModifierImpl("").addAttribute(key, value)
+}
+
 fun Modifier.finalize(clazz: String): String {
     if (clazz.isBlank()) {
         return classes
@@ -31,6 +36,9 @@ fun CoreAttributeGroupFacade.applyModifier(modifier: Modifier) {
 //            println("Setting style= $it")
             style = it
         }
+    }
+    modifier.attr?.forEach {
+        attributes[it.first] = it.second.toString()
     }
 }
 
@@ -84,6 +92,15 @@ fun Modifier.visibility(visible: Boolean): Modifier {
     return appendClass(if (visible) "visible" else "invisible")
 }
 
+fun Modifier.pointer(value: Boolean = true): Modifier {
+    return appendClass(if (value) "pe-auto" else "pe-none")
+}
+
+fun Modifier.button(): Modifier {
+    return appendAttr("role", "button")
+}
+
+
 val Modifier.classes: String
     get() {
         val classes = (this as? ModifierImpl)?.clazzes
@@ -116,18 +133,11 @@ val Modifier.style: String?
         return finalStyle
     }
 
-//fun Modifier.styled(builder: CssBuilder.() -> Unit): Modifier {
-//    return StyleModifier(value)
-//}
-//
-//class StyleModifier(val value: StyledElement.() -> Unit) : Modifier {
-//
-//    fun apply(element: StyledElement) {
-//        ruleSet {
-//            element.declarations
-//        }
-//    }
-//}
+val Modifier.attr: MutableList<Pair<String, Any>>?
+    get() {
+        return (this as? ModifierImpl)?._attributes ?: return null
+    }
+
 
 enum class StyleKey(val value: String) {
     BACKGROUND_COLOR("background-color"), COLOR("color"), TEXT_TRANSFORM("text-transform"), LINE_HEIGHT("line-height"), MARGIN(
@@ -141,6 +151,7 @@ enum class StyleKey(val value: String) {
 class ModifierImpl(classes: String) : Modifier {
     private var classList: MutableList<String?> = mutableListOf()
     var _styles: MutableList<Pair<StyleKey, Any>> = mutableListOf()
+    var _attributes: MutableList<Pair<String, Any>> = mutableListOf()
 
     init {
 //        println("init")
@@ -153,9 +164,17 @@ class ModifierImpl(classes: String) : Modifier {
         return this
     }
 
+    fun addAttribute(name: String, value: Any): ModifierImpl {
+//        println("Adding attribute $name: $value")
+        _attributes.add(name to value)
+        return this
+    }
+
     fun addClass(value: String): ModifierImpl {
 //        println("Adding class $value")
-        classList.add(value)
+        if (value.isNotBlank()){
+            classList.add(value)
+        }
         return this
     }
 

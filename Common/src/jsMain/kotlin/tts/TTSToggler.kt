@@ -25,16 +25,23 @@ fun setToggleTTSEvents() {
     println("Setting TTS toggle events")
     var isTTSOn = isTTSEnabled()
     val ttsToggle = getElementById<HTMLElement>("tts-toggle")
-    ttsToggle?.innerHTML = if (isTTSOn) "Enabled TTS" else "Disabled TTS"
+    updateTTSToggleButton(isTTSOn)
     ttsToggle?.addEventListener("click", {
         isTTSOn = !isTTSOn
-        if (isTTSOn) {
-            ttsToggle.innerHTML = "Enabled TTS"
-        } else {
-            ttsToggle.innerHTML = "Disabled TTS"
-        }
         setTTSEnabled(isTTSOn)
+        updateTTSToggleButton(isTTSOn)
     })
+}
+
+fun updateTTSToggleButton(isTTSOn: Boolean) {
+    val ttsToggle = getElementById<HTMLElement>("tts-toggle")
+    ttsToggle?.innerHTML = if (isTTSOn) {
+        ttsToggle?.classList?.add("bi-volume-up")
+        "TTS ON"
+    } else {
+        ttsToggle?.classList?.add("bi-volume-mute")
+        "TTS OFF"
+    }
 }
 
 fun setTTSEnabled(on: Boolean) {

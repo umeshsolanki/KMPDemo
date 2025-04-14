@@ -1,6 +1,8 @@
 package common
 
 import com.bootstrap.components.nav.*
+import com.bootstrap.modifier.Modifier
+import com.bootstrap.modifier.button
 import kotlinx.html.BODY
 import kotlinx.html.id
 
@@ -27,7 +29,7 @@ fun BODY.NavBar() {
                     href = "/kids"
                     +"Kids Tutorial"
                 }
-                NavLink {
+                NavLink(modifier = Modifier.button()) {
                     id = "tts-toggle"
                 }
             }

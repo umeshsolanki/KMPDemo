@@ -8,8 +8,7 @@ import com.bootstrap.components.cards.Card
 import com.bootstrap.components.layout.Column
 import com.bootstrap.components.layout.Row
 import com.bootstrap.components.layout.spaced
-import com.bootstrap.modifier.Modifier
-import com.bootstrap.modifier.classes
+import com.bootstrap.modifier.*
 import kotlinx.browser.window
 import kotlinx.html.h1
 import kotlinx.html.id
@@ -98,6 +97,7 @@ class WordMeaningViewModel {
                                 data.data.forEachIndexed { index, category ->
                                     Column(6) {
                                         p(Modifier.textColor(ThemedColor.SECONDARY).classes) {
+                                            applyModifier(Modifier.button())
                                             onClickFunction = {
                                                 loadWords(index)
                                             }
@@ -133,7 +133,7 @@ class WordMeaningViewModel {
                     +category.type
                 }
                 category.words.forEach { word ->
-                    Column(3, modifier = Modifier.spaced(2)) {
+                    Column(3, modifier = Modifier.button().spaced(2)) {
                         Card(modifier = Modifier.backgroundColor(ThemedColor.INFO)) {
                             Row {
                                 Column {
