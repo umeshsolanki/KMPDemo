@@ -3,18 +3,19 @@ androidx-lifecycle = "2.8.4"
 compose-multiplatform = "1.7.3"
 junit = "4.13.2"
 kotlin = "2.1.20"
-ktor = "3.1.1"
+ktor = "3.1.2"
 logback = "1.5.17"
-hikaricp_version = "5.0.1"
-ehcache_version = "3.10.8"
-ktor_version = "3.1.1"
-kotlin_css_version = "1.0.0-pre.625"
-html_version = "0.12.0"
-coroutine_version = "1.8.1"
-kotlinx_serialization = "1.6.3"
-mongodb_driver = "5.4.0"
+hikaricpversion = "5.0.1"
+ehcacheversion = "3.10.8"
+kotlincssversion = "1.0.0-pre.625"
+htmlversion = "0.12.0"
+coroutineversion = "1.8.1"
+kotlinx-json-serialization = "1.6.3"
+mongodbdriver = "5.4.0"
 kapt.use.k2 = true
-kotlin_version = "2.1.20"
+kotlin-serialization-plugin = "2.0.0"
+gson = "2.10.1"
+ksp = "2.1.20-1.0.32"
 
 
 [libraries]
@@ -24,9 +25,33 @@ junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-lifecycle-viewmodel = { group = "org.jetbrains.androidx.lifecycle", name = "lifecycle-viewmodel", version.ref = "androidx-lifecycle" }
 androidx-lifecycle-runtime-compose = { group = "org.jetbrains.androidx.lifecycle", name = "lifecycle-runtime-compose", version.ref = "androidx-lifecycle" }
 logback = { module = "ch.qos.logback:logback-classic", version.ref = "logback" }
-ktor-server-core = { module = "io.ktor:ktor-server-core-jvm", version.ref = "ktor" }
-ktor-server-netty = { module = "io.ktor:ktor-server-netty-jvm", version.ref = "ktor" }
-ktor-server-tests = { module = "io.ktor:ktor-server-tests-jvm", version.ref = "ktor" }
+gson = { module = "com.google.code.gson:gson", version.ref = "gson" }
+
+coroutine-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "coroutineversion" }
+kotlinx-json-serialization = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinx-json-serialization" }
+
+ktor-server-core = { module = "io.ktor:ktor-server-core", version.ref = "ktor" }
+ktor-server-netty = { module = "io.ktor:ktor-server-netty", version.ref = "ktor" }
+ktor-server-tests = { module = "io.ktor:ktor-server-tests", version.ref = "ktor" }
+ktor-server-html-builder = { module = "io.ktor:ktor-server-html-builder", version.ref = "ktor" }
+ktor-server-content-negotiation = { module = "io.ktor:ktor-server-content-negotiation", version.ref = "ktor" }
+ktor-server-websockets = { module = "io.ktor:ktor-server-websockets", version.ref = "ktor" }
+ktor-server-double-receive = { module = "io.ktor:ktor-server-double-receive", version.ref = "ktor" }
+ktor-server-cors = { module = "io.ktor:ktor-server-cors", version.ref = "ktor" }
+
+
+ktor-client-encoding = { module = "io.ktor:ktor-client-encoding", version.ref = "ktor" }
+ktor-client-core = { module = "io.ktor:ktor-client-core", version.ref = "ktor" }
+ktor-client-cio = { module = "io.ktor:ktor-client-cio", version.ref = "ktor" }
+
+kotlinx-html = { module = "org.jetbrains.kotlinx:kotlinx-html", version.ref = "htmlversion" }
+
+
+
+[bundles]
+ktorBundle = ["ktor-server-core", "ktor-server-netty", "ktor-server-html-builder", "ktor-server-content-negotiation", "ktor-server-websockets", "ktor-server-double-receive", "ktor-client-encoding", "ktor-client-core", "ktor-client-cio", "ktor-server-cors"]
+ktorclientbundle = ["ktor-client-encoding", "ktor-client-core", "ktor-client-cio"]
+ktorserverbundle = ["ktor-server-core", "ktor-server-netty", "ktor-server-html-builder", "ktor-server-content-negotiation", "ktor-server-websockets", "ktor-server-double-receive", "ktor-server-cors"]
 
 [plugins]
 composeMultiplatform = { id = "org.jetbrains.compose", version.ref = "compose-multiplatform" }
@@ -34,3 +59,5 @@ composeCompiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "k
 kotlinJvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
 ktor = { id = "io.ktor.plugin", version.ref = "ktor" }
 kotlinMultiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
+kotlinSerialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin-serialization-plugin" }
+ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
