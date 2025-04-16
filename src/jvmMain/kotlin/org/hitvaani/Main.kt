@@ -1,6 +1,8 @@
 package org.hitvaani
 
 import com.devuss.autoproxy.AutoProxyController
+import db.DbHelper
+import db.models.Word
 import io.ktor.http.*
 import io.ktor.server.application.*
 import io.ktor.server.engine.*
@@ -13,6 +15,8 @@ import io.ktor.server.websocket.*
 import kidsTeacher.english.EnglishHomeController
 import kidsTeacher.home.KidsLearningController
 import kidsTeacher.math.numbers.MathsController
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import kotlinx.css.CssBuilder
 import org.hitvaani.css.CssController
 import org.hitvaani.home.CrawlerController
@@ -21,6 +25,16 @@ import org.hitvaani.sewakvaani.SewakVaaniController
 import kotlin.time.Duration.Companion.seconds
 
 fun main() {
+
+//    GlobalScope.launch {
+//        println("Hello World!")
+//        DbHelper.getCollection().apply {
+//            insertOne(Word("hello", "नमस्ते", "greeting", listOf("noun", "verb")))
+//            find<Word>().collect {
+//                println("$it")
+//            }
+//        }
+//    }.start()
     embeddedServer(Netty, port = 8080) {
         install(CORS) {
             anyHost()
@@ -46,6 +60,7 @@ fun main() {
             SewakVaaniController().init(this)
         }
     }.start(wait = true)
+
 }
 
 

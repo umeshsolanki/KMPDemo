@@ -1,15 +1,18 @@
+@file:OptIn(ExperimentalKotlinGradlePluginApi::class)
+import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
+
 plugins {
-    id("application")
-    kotlin("multiplatform") version "2.1.10"
+    kotlin("multiplatform") version "2.1.20"
     kotlin("plugin.serialization") version "2.0.0"
     id("io.ktor.plugin") version "3.1.1"
-    id("com.google.devtools.ksp") version "2.1.0-1.0.29"}
+    id("com.google.devtools.ksp") version "2.1.20-1.0.32"}
 
 group = "com.devuss"
 version = "1.0-SNAPSHOT"
 
 
 val ktor_version: String by project
+val kotlin_version:String by project
 val kotlin_css_version: String by project
 val kotlinx_serialization: String by project
 val coroutine_version: String by project
@@ -31,15 +34,10 @@ repositories {
 kotlin {
 
     jvm {
-        withJava()
-        tasks.withType<Jar> {
-            manifest {
-                attributes["Main-Class"] = "org.hitvaani.MainKt"
-            }
-        }
+        binaries {
+            executable {
 
-        application {
-            mainClass.set("org.hitvaani.MainKt")
+            }
         }
     }
     js(IR) {
@@ -54,7 +52,7 @@ kotlin {
 
     sourceSets {
 
-        val commonMain by getting {
+        commonMain {
 //            kotlin.srcDir("build/generated/ksp/metadata/commonMain/kotlin")
 
             dependencies {
@@ -66,7 +64,7 @@ kotlin {
                 implementation(project(":Common"))
                 implementation(project(":TTS"))
                 implementation("io.ktor:ktor-client-encoding:$ktor_version")
-                implementation("org.jetbrains.kotlin:kotlin-stdlib:2.1.10")
+                implementation("org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version")
                 implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:${kotlinx_serialization}")
                 implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutine_version")
                 implementation("io.ktor:ktor-client-core:$ktor_version")
@@ -78,7 +76,7 @@ kotlin {
         }
 
 
-        val jsMain by getting {
+        jsMain {
             dependencies {
                 implementation(project(":Common"))
                 implementation(project(":TTS"))
@@ -90,7 +88,7 @@ kotlin {
 
             }
         }
-        val jvmMain by getting {
+        jvmMain {
 
             dependencies {
                 implementation(project(":Common"))
@@ -136,7 +134,7 @@ kotlin {
 
             }
         }
-        val commonTest by getting {
+        commonTest {
             dependencies {
                 implementation(kotlin("test"))
             }
@@ -152,17 +150,13 @@ kotlin {
     tasks.named("jsBrowserDevelopmentExecutableDistribution") {
         finalizedBy("copyJsDistToResources")
     }
-    tasks.named("jsBrowserWebpack") {
+    tasks.named("jsBrowserDistribution") {
         finalizedBy("copyJsDistToResources")
     }
 
-    tasks.named("jvmProcessResources") {
-        dependsOn("copyJsDistToResources")
     }
-
-}
 
 dependencies {
     // sqllin-processor
-    add("kspCommonMainMetadata", "com.ctrip.kotlin:sqllin-processor:$sqllinVersion")
+    
 }
