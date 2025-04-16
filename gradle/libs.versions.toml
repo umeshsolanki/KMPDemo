@@ -65,7 +65,7 @@ jsoup = { module = "org.jsoup:jsoup", version.ref = "jsoup" }
 
 ktorclientbundle = ["ktor-client-encoding", "ktor-client-core", "ktor-client-cio", "ktor-client-serialization"]
 ktorserverbundle = ["ktor-server-core", "ktor-server-netty", "ktor-server-html-builder", "ktor-server-content-negotiation",
-    "ktor-server-websockets", "ktor-server-double-receive", "ktor-server-cors"]
+    "ktor-server-websockets", "ktor-server-double-receive", "ktor-server-cors","kotlinx-html", "kotlin-css"]
 
 commonMain = ["kotlin-stdlib", "kotlinx-json-serialization", "ktor-server-core", "ktor-server-html-builder",
     "ktor-server-content-negotiation", "ktor-server-websockets", "ktor-server-double-receive", "ktor-client-encoding",

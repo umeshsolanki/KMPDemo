@@ -12,6 +12,12 @@ application {
     applicationDefaultJvmArgs = listOf("")
 }
 
+tasks.withType<Jar> {
+    manifest {
+        attributes["Main-Class"] = "org.hitvaani.MainKt"
+    }
+}
+
 dependencies {
     implementation(projects.common)
     implementation(projects.english)

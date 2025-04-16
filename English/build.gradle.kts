@@ -68,10 +68,6 @@ kotlin {
                 implementation(projects.common)
                 implementation(projects.tts)
                 implementation(libs.bundles.ktorserverbundle)
-                implementation(libs.bundles.ktorserverbundle)
-                implementation(libs.kotlinx.html)
-                //                implementation("org.slf4j:slf4j-log4j12:1.7.36")
-//
                 implementation(libs.ktor.client.encoding)
                 implementation(libs.ktor.client.core)
                 implementation(libs.ktor.client.cio)
@@ -81,7 +77,6 @@ kotlin {
                 implementation(libs.kotlinx.json.serialization)
                 implementation(libs.slf4j)
                 implementation(libs.coroutine.core)
-                implementation(libs.kotlin.css)
             }
         }
         commonTest {
