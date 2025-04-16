@@ -16,11 +16,16 @@ kapt.use.k2 = true
 kotlin-serialization-plugin = "2.0.0"
 gson = "2.10.1"
 ksp = "2.1.20-1.0.32"
-
+#ksp = "2.1.20-1.0.29"
+slf4j = "1.7.36"
+jsoup = "1.19.1"
 
 [libraries]
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
 kotlin-test-junit = { module = "org.jetbrains.kotlin:kotlin-test-junit", version.ref = "kotlin" }
+kotlin-stdlib = { module = "org.jetbrains.kotlin:kotlin-stdlib", version.ref = "kotlin" }
+
+
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-lifecycle-viewmodel = { group = "org.jetbrains.androidx.lifecycle", name = "lifecycle-viewmodel", version.ref = "androidx-lifecycle" }
 androidx-lifecycle-runtime-compose = { group = "org.jetbrains.androidx.lifecycle", name = "lifecycle-runtime-compose", version.ref = "androidx-lifecycle" }
@@ -39,25 +44,45 @@ ktor-server-websockets = { module = "io.ktor:ktor-server-websockets", version.re
 ktor-server-double-receive = { module = "io.ktor:ktor-server-double-receive", version.ref = "ktor" }
 ktor-server-cors = { module = "io.ktor:ktor-server-cors", version.ref = "ktor" }
 
-
 ktor-client-encoding = { module = "io.ktor:ktor-client-encoding", version.ref = "ktor" }
 ktor-client-core = { module = "io.ktor:ktor-client-core", version.ref = "ktor" }
 ktor-client-cio = { module = "io.ktor:ktor-client-cio", version.ref = "ktor" }
-
+ktor-clientjs = { module = "io.ktor:ktor-client-js", version.ref = "ktor" }
+ktor-client-websockets = { module = "io.ktor:ktor-client-websockets", version.ref = "ktor" }
+ktor-client-logging = { module = "io.ktor:ktor-client-logging", version.ref = "ktor" }
+ktor-client-serialization = { module = "io.ktor:ktor-client-serialization", version.ref = "ktor" }
+ktor-serialization-gson = { module = "io.ktor:ktor-serialization-gson", version.ref = "ktor" }
 kotlinx-html = { module = "org.jetbrains.kotlinx:kotlinx-html", version.ref = "htmlversion" }
+kotlin-css = { module = "org.jetbrains.kotlin-wrappers:kotlin-css", version.ref = "kotlincssversion" }
 
 
-
+slf4j = { module = "org.slf4j:slf4j-api", version.ref = "slf4j" }
+jsoup = { module = "org.jsoup:jsoup", version.ref = "jsoup" }
 [bundles]
-ktorBundle = ["ktor-server-core", "ktor-server-netty", "ktor-server-html-builder", "ktor-server-content-negotiation", "ktor-server-websockets", "ktor-server-double-receive", "ktor-client-encoding", "ktor-client-core", "ktor-client-cio", "ktor-server-cors"]
-ktorclientbundle = ["ktor-client-encoding", "ktor-client-core", "ktor-client-cio"]
-ktorserverbundle = ["ktor-server-core", "ktor-server-netty", "ktor-server-html-builder", "ktor-server-content-negotiation", "ktor-server-websockets", "ktor-server-double-receive", "ktor-server-cors"]
+#ktorBundle = ["ktor-server-core", "ktor-server-netty", "ktor-server-html-builder", "ktor-server-content-negotiation",
+#    "ktor-server-websockets", "ktor-server-double-receive", "ktor-client-encoding", "ktor-client-core",
+#    "ktor-client-cio", "ktor-server-cors"]
+
+ktorclientbundle = ["ktor-client-encoding", "ktor-client-core", "ktor-client-cio", "ktor-client-serialization"]
+ktorserverbundle = ["ktor-server-core", "ktor-server-netty", "ktor-server-html-builder", "ktor-server-content-negotiation",
+    "ktor-server-websockets", "ktor-server-double-receive", "ktor-server-cors"]
+
+commonMain = ["kotlin-stdlib", "kotlinx-json-serialization", "ktor-server-core", "ktor-server-html-builder",
+    "ktor-server-content-negotiation", "ktor-server-websockets", "ktor-server-double-receive", "ktor-client-encoding",
+    "ktor-client-core", "ktor-client-cio"]
+jvmMain = ["kotlin-stdlib", "kotlinx-json-serialization", "ktor-server-core", "ktor-server-netty",
+    "ktor-server-html-builder", "ktor-server-content-negotiation", "ktor-server-websockets",
+    "ktor-server-double-receive", "ktor-client-encoding", "ktor-client-core", "ktor-client-cio"]
+jsMain = ["kotlin-stdlib", "kotlinx-json-serialization", "ktor-server-html-builder", "ktor-client-encoding",
+    "ktor-client-core", "ktor-client-cio"]
 
 [plugins]
-composeMultiplatform = { id = "org.jetbrains.compose", version.ref = "compose-multiplatform" }
-composeCompiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
+#composeMultiplatform = { id = "org.jetbrains.compose", version.ref = "compose-multiplatform" }
+#composeCompiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 kotlinJvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
 ktor = { id = "io.ktor.plugin", version.ref = "ktor" }
 kotlinMultiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
 kotlinSerialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin-serialization-plugin" }
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
+application = { id = "application" }
+distribution = { id = "distribution" }

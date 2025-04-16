@@ -1,7 +1,7 @@
 plugins {
     alias(libs.plugins.kotlinJvm)
     alias(libs.plugins.ktor)
-    application
+    alias(libs.plugins.application)
 }
 
 group = "com.devuss"

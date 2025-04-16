@@ -3,9 +3,9 @@
 import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 
 plugins {
-    alias(libs.plugins.ktor)
+//    alias(libs.plugins.ktor)
     alias(libs.plugins.kotlinMultiplatform)
-//    application
+    alias(libs.plugins.distribution)
     alias(libs.plugins.kotlinSerialization)
     alias(libs.plugins.ksp)
 }
@@ -37,21 +37,18 @@ kotlin {
     sourceSets {
 
         commonMain {
-
-
             dependencies {
-
                 implementation(projects.common)
                 implementation(libs.bundles.ktorclientbundle)
                 implementation(libs.kotlinx.html)
-//                implementation("io.ktor:ktor-client-encoding:$ktor_version")
-//                implementation("org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version")
-//                implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:${kotlinx_serialization}")
-//                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutine_version")
-//                implementation("io.ktor:ktor-client-core:$ktor_version")
-//                implementation(libs.kotlinx.json.serialization)
-//                implementation("io.ktor:ktor-client-websockets:$ktor_version")
-//                implementation("io.ktor:ktor-client-logging:$ktor_version")
+                implementation(libs.ktor.client.encoding)
+                implementation(libs.kotlin.stdlib)
+                implementation(libs.kotlinx.json.serialization)
+                implementation(libs.coroutine.core)
+                implementation(libs.ktor.client.core)
+                implementation(libs.kotlinx.json.serialization)
+                implementation(libs.ktor.client.websockets)
+                implementation(libs.ktor.client.logging)
             }
         }
 
@@ -61,14 +58,12 @@ kotlin {
                 implementation(projects.common)
                 implementation(projects.tts)
                 implementation(libs.kotlinx.html)
-//                implementation("org.jetbrains.kotlin-wrappers:kotlin-css:1.0.0-pre.457")
-//                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core-js:1.6.4")
-//                implementation("io.ktor:ktor-client-js:$ktor_version")
-
+                implementation(libs.kotlin.css)
+                implementation(libs.ktor.clientjs)
+                implementation(libs.coroutine.core)
             }
         }
         jvmMain {
-
             dependencies {
                 implementation(projects.common)
                 implementation(projects.tts)
@@ -77,33 +72,16 @@ kotlin {
                 implementation(libs.kotlinx.html)
                 //                implementation("org.slf4j:slf4j-log4j12:1.7.36")
 //
-//                implementation("io.ktor:ktor-client-encoding:$ktor_version")
-//                implementation("io.ktor:ktor-client-core:$ktor_version")
-//                implementation("io.ktor:ktor-client-cio:$ktor_version")
-//                implementation("io.ktor:ktor-server-cors:$ktor_version")
-//
-//                implementation("org.jsoup:jsoup:1.19.1")
-//
-//                implementation("io.ktor:ktor-serialization-gson:${ktor_version}")
+                implementation(libs.ktor.client.encoding)
+                implementation(libs.ktor.client.core)
+                implementation(libs.ktor.client.cio)
+                implementation(libs.ktor.server.cors)
+                implementation(libs.jsoup)
+                implementation(libs.ktor.serialization.gson)
                 implementation(libs.kotlinx.json.serialization)
-
-//
-
-//                implementation("org.slf4j:slf4j-simple:1.7.21")
-//
-//                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.8.1")
-//                implementation("org.jetbrains.kotlin-wrappers:kotlin-css:$kotlin_css_version")
-//
-//                implementation("org.litote.kmongo:kmongo:4.8.0")
-//
-
-
-//
-
-//                implementation("com.squareup.okio:okio:3.1.0")
-//                implementation("org.mongodb:mongodb-driver-sync:4.8.1")
-//                implementation("org.mongodb:bson:2.5.1")
-
+                implementation(libs.slf4j)
+                implementation(libs.coroutine.core)
+                implementation(libs.kotlin.css)
             }
         }
         commonTest {
@@ -125,10 +103,5 @@ kotlin {
     tasks.named("jsBrowserDistribution") {
         finalizedBy("copyJsDistToResources")
     }
-
-}
-
-dependencies {
-    // sqllin-processor
 
 }
