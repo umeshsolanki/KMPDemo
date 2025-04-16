@@ -1,12 +1,13 @@
 @file:OptIn(ExperimentalKotlinGradlePluginApi::class)
-
 import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 
 plugins {
-    kotlin("multiplatform") version "2.1.20"
-    kotlin("plugin.serialization") version "2.0.0"
-    id("io.ktor.plugin") version "3.1.1"
-    id("com.google.devtools.ksp") version "2.1.20-1.0.32"
+        // this is necessary to avoid the plugins to be loaded multiple times
+        // in each subproject's classloader
+        alias(libs.plugins.composeMultiplatform) apply false
+        alias(libs.plugins.composeCompiler) apply false
+        alias(libs.plugins.kotlinJvm) apply false
+        alias(libs.plugins.kotlinMultiplatform) apply false
 }
 
 group = "com.devuss"
@@ -37,6 +38,7 @@ kotlin {
         binaries {
             // Configures a JavaExec task named "runJvm" and a Gradle distribution for the "main" compilation in this target
             executable {
+                mainModule.set("KMPDemo")
                 mainClass.set("org.hitvaani.MainKt")
             }
         }

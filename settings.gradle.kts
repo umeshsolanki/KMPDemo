@@ -1,8 +1,32 @@
-//@file:OptIn(ExperimentalKotlinGradlePluginApi::class)
-//import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
+enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 
-//    id("org.gradle.toolchains.foojay-resolver-convention") version "0.8.0"
-//}
+pluginManagement {
+    repositories {
+        google {
+            mavenContent {
+                includeGroupAndSubgroups("androidx")
+                includeGroupAndSubgroups("com.android")
+                includeGroupAndSubgroups("com.google")
+            }
+        }
+        mavenCentral()
+        gradlePluginPortal()
+    }
+}
+
+dependencyResolutionManagement {
+    repositories {
+        google {
+            mavenContent {
+                includeGroupAndSubgroups("androidx")
+                includeGroupAndSubgroups("com.android")
+                includeGroupAndSubgroups("com.google")
+            }
+        }
+        mavenCentral()
+    }
+}
+
 rootProject.name = "KMPDemo"
 include("KidsTeacher")
 include("Common")
@@ -11,3 +35,4 @@ include("English")
 include("Maths")
 include("TTS")
 include("DBCore")
+include("Server")

@@ -6,6 +6,7 @@ plugins {
     kotlin("plugin.serialization") version "2.0.0"
     id("io.ktor.plugin") version "3.1.1"
     id("com.google.devtools.ksp") version "2.1.20-1.0.32"
+    distribution
 }
 
 group = "com.devuss"

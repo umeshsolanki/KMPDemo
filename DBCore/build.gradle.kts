@@ -2,8 +2,8 @@
 import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 
 plugins {
-     distribution
     kotlin("multiplatform") version "2.1.20"
+    distribution
     kotlin("plugin.serialization") version "2.0.0"
     id("io.ktor.plugin") version "3.1.1"
     id("com.google.devtools.ksp") version "2.1.20-1.0.32"
