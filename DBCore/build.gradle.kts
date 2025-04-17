@@ -62,13 +62,7 @@ kotlin {
         }
         jvmMain {
             dependencies {
-//                implementation("org.mongodb:bson-kotlinx:${mongodb_driver}")
-//                implementation("org.litote.kmongo:kmongo:4.8.0")
-
-//                implementation("com.squareup.okio:okio:3.1.0")
-                implementation(libs.mongo.driversync)
-                implementation(libs.mongo.coroutine)
-                implementation(libs.mongo.bson.kotlin)
+                implementation(libs.bundles.allDb)
 
             }
         }

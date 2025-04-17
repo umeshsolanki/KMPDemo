@@ -77,7 +77,7 @@ kotlin {
                 implementation(libs.kotlinx.json.serialization)
                 implementation(libs.slf4j)
                 implementation(libs.coroutine.core)
-                implementation(libs.bundles.dbundle)
+                implementation(libs.bundles.allDb)
             }
         }
         commonTest {

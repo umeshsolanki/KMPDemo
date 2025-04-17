@@ -1,34 +1,48 @@
 package db.rdms
 
+import com.zaxxer.hikari.HikariConfig
+import com.zaxxer.hikari.HikariDataSource
+import db.rdms.tables.TableRegistry
+import org.jetbrains.exposed.sql.Database
+import org.jetbrains.exposed.sql.SchemaUtils
+import org.jetbrains.exposed.sql.transactions.transaction
+
 object RdbHelper {
 
-    const val defaultConnection = "jdbc:mysql://localhost:3306/"
-    const val defaultDb = "kidsTeacher"
-    const val defaultUser = "root"
-    const val defaultPassword = "Mysqldb@0_$"
+    private const val defaultDb = "kidsTeacher"
+    private const val defaultConnection = "jdbc:mysql://localhost:3306/$defaultDb"
+    private const val defaultUser = "root"
+    private const val defaultPassword = "Mysqldb@0_"
 
-    fun getConnectionString(
-        db: String = defaultDb, user: String = defaultUser, password: String = defaultPassword
-    ): String {
-        return "$defaultConnection$db?user=$user&password=$password"
+    private val config = HikariConfig().apply {
+        jdbcUrl = defaultConnection
+        driverClassName = "com.mysql.cj.jdbc.Driver"
+        username = defaultUser
+        password = defaultPassword
+        maximumPoolSize = 6
+        // as of version 0.46.0, if these options are set here, they do not need to be duplicated in DatabaseConfig
+        isReadOnly = false
+        transactionIsolation = "TRANSACTION_SERIALIZABLE"
     }
 
-    fun getConnection(
-        db: String = defaultDb, user: String = defaultUser, password: String = defaultPassword
-    ): java.sql.Connection {
-        return java.sql.DriverManager.getConnection(getConnectionString(db, user, password))
+    private val dataSource = HikariDataSource(config)
+
+    fun getDatabase(): Database {
+        return Database.connect(dataSource)
     }
 
-    fun closeConnection(connection: java.sql.Connection) {
-        try {
-            connection.close()
-        } catch (e: Exception) {
-            e.printStackTrace()
+    fun createDbAndTables() {
+        transaction(getDatabase()) {
+            println("Creating database...")
+            SchemaUtils.createDatabase(defaultDb)
+            println("Database created")
+        }
+        transaction {
+            print("Creating tables...")
+            SchemaUtils.create(*TableRegistry.getAllTables().toTypedArray())
+            println("tables created")
         }
     }
 
-    fun getStatement(connection: java.sql.Connection): java.sql.Statement {
-        return connection.createStatement()
-    }
 
 }

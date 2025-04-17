@@ -3,6 +3,11 @@ package org.hitvaani
 //import com.devuss.autoproxy.AutoProxyController
 //import org.hitvaani.home.CrawlerController
 //import org.hitvaani.sewakvaani.SewakVaaniController
+import db.rdms.RdbHelper
+import db.rdms.tables.TableProvider
+import db.rdms.tables.TableRegistry
+import db.rdms.tables.TestEntity
+import db.rdms.tables.TestTable
 import io.ktor.http.*
 import io.ktor.server.application.*
 import io.ktor.server.engine.*
@@ -18,6 +23,9 @@ import kidsTeacher.math.numbers.MathsController
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.css.CssBuilder
 import org.hitvaani.home.HomePageController
+import org.jetbrains.exposed.sql.Table
+import org.jetbrains.exposed.sql.selectAll
+import org.jetbrains.exposed.sql.transactions.transaction
 import kotlin.time.Duration.Companion.seconds
 
 @OptIn(DelicateCoroutinesApi::class)
@@ -40,7 +48,19 @@ fun main() {
             KidsLearningController(this)
             MathsController(this)
             EnglishHomeController(this)
-//
+            TableRegistry.register(object : TableProvider {
+                override fun listTables(): List<Table> {
+                    return listOf(TestTable)
+                }
+            })
+            RdbHelper.createDbAndTables()
+            transaction(RdbHelper.getDatabase()) {
+//                TestTable.selectAll()
+//                TestEntity.findById(1)?.let {
+//                    it.name
+//                    println(it.name)
+//                }
+            }
 //            CrawlerController(this)
 //            AutoProxyController(this)
 //            CssController().init(this)
