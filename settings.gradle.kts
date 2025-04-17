@@ -28,12 +28,12 @@ dependencyResolutionManagement {
 }
 
 rootProject.name = "KMPDemo"
-//include("KidsTeacher")
+include("KidsTeacher")
+include("DBCore")
 include("Common")
-//include("Hindi")
+include("Hindi")
 include("English")
-//include("Maths")
+include("Maths")
 include("TTS")
-//include("DBCore")
 include("Server")
 //include("Crawler")

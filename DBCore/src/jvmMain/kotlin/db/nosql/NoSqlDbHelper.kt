@@ -1,16 +1,16 @@
-package db
+package db.nosql
 
+import com.mongodb.client.result.InsertManyResult
+import com.mongodb.client.result.InsertOneResult
 import com.mongodb.kotlin.client.coroutine.MongoClient
 import com.mongodb.kotlin.client.coroutine.MongoCollection
 import com.mongodb.kotlin.client.coroutine.MongoDatabase
-import db.models.Word
 
 
-object DbHelper {
+object NoSqlDbHelper {
 
     private const val defaultConnection = "mongodb://localhost:27017"
-    private const val defaultDb = "kidsTeacher"
-    const val WORDS_COLLECTION = "words"
+    const val DefaultDb: String = "kidsTeacher"
 
     /**
      * @param connectionString MongoDB connection string
@@ -25,14 +25,21 @@ object DbHelper {
         }
     }
 
-    fun getDb(db: String = defaultDb): MongoDatabase {
+    fun getDb(db: String = DefaultDb): MongoDatabase {
         return getMongoClient(defaultConnection)?.getDatabase(db) ?: throw Exception("Unable to connect to MongoDB")
     }
 
-    fun getCollection(db: String = defaultDb, collection: String = WORDS_COLLECTION): MongoCollection<Word> {
-        return getDb(db).getCollection(collection)
+    inline fun <reified T : Any> getCollection(db: String, collection: String): MongoCollection<T> {
+        return getDb(db).getCollection<T>(collection)
     }
 
+    suspend inline fun <reified T : Any> insert(data: T): InsertOneResult {
+        return getDb().getCollection<T>(T::class.java.simpleName).insertOne(data)
+    }
+
+    suspend inline fun <reified T : Any> insert(data: List<T>): InsertManyResult {
+        return getDb().getCollection<T>(T::class.java.simpleName).insertMany(data)
+    }
 
     private val clientPool = mutableMapOf<String?, MongoClient?>()
 }

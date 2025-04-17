@@ -1,6 +1,6 @@
 plugins {
     alias(libs.plugins.kotlinJvm)
-    alias(libs.plugins.ktor)
+//    alias(libs.plugins.ktor)
     alias(libs.plugins.application)
 }
 
@@ -21,7 +21,11 @@ tasks.withType<Jar> {
 dependencies {
     implementation(projects.common)
     implementation(projects.english)
-    implementation(libs.ktor.server.core)
+    implementation(projects.hindi)
+    implementation(projects.kidsTeacher)
+    implementation(projects.maths)
+    implementation(projects.dbCore)
+    implementation(libs.bundles.dbundle)
     implementation(libs.bundles.ktorserverbundle)
     implementation(libs.gson)
 }
