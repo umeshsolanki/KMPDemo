@@ -33,11 +33,6 @@ kotlin {
             dependencies {
                 implementation(projects.common)
                 api(projects.kidsTeacher)
-                implementation(projects.hindi)
-                implementation(projects.english)
-                implementation(projects.maths)
-                implementation(projects.tts)
-
                 implementation(libs.kotlinx.html)
                 implementation(libs.kotlinx.json.serialization)
 
@@ -49,10 +44,6 @@ kotlin {
             dependencies {
                 implementation(projects.common)
                 api(projects.kidsTeacher)
-                implementation(projects.hindi)
-                implementation(projects.english)
-                implementation(projects.maths)
-                implementation(projects.tts)
 
 //                implementation(libs.kotlinx.html)
 //                implementation("org.jetbrains.kotlin-wrappers:kotlin-css:1.0.0-pre.457")

@@ -24,8 +24,12 @@ object TableRegistry {
 
 }
 
+const val VARCHAR_LENGTH_3 = 3
 const val VARCHAR_LENGTH_50 = 50
+const val VARCHAR_LENGTH_20 = 20
 const val VARCHAR_LENGTH_100 = 100
+const val VARCHAR_LENGTH_200 = 100
+const val VARCHAR_LENGTH_500 = 100
 const val VARCHAR_LENGTH_1000 = 1000
 const val VARCHAR_LENGTH_10 = 10
 
@@ -40,14 +44,4 @@ class TestEntity(
     companion object : IntEntityClass<TestEntity>(TestTable)
 
     var name by TestTable.name
-}
-
-
-object WordsTable : IntIdTable() {
-    val word = varchar("word", VARCHAR_LENGTH_50)
-    val meaning = varchar("meaning", VARCHAR_LENGTH_1000)
-    val type = varchar("type", VARCHAR_LENGTH_10)
-    val lang = varchar("lang", VARCHAR_LENGTH_10)
-    val createdAt = long("created_at")
-    val updatedAt = long("updated_at")
 }

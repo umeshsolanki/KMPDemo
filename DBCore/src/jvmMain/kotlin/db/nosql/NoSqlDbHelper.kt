@@ -1,10 +1,14 @@
 package db.nosql
 
+import com.mongodb.client.model.Filters.eq
 import com.mongodb.client.result.InsertManyResult
 import com.mongodb.client.result.InsertOneResult
 import com.mongodb.kotlin.client.coroutine.MongoClient
 import com.mongodb.kotlin.client.coroutine.MongoCollection
 import com.mongodb.kotlin.client.coroutine.MongoDatabase
+import kotlinx.coroutines.flow.firstOrNull
+import kotlinx.coroutines.flow.toList
+import org.bson.conversions.Bson
 
 
 object NoSqlDbHelper {
@@ -40,6 +44,23 @@ object NoSqlDbHelper {
     suspend inline fun <reified T : Any> insert(data: List<T>): InsertManyResult {
         return getDb().getCollection<T>(T::class.java.simpleName).insertMany(data)
     }
+
+    suspend inline fun <reified T : Any> getAll(): List<T> {
+        return getDb().getCollection<T>(T::class.java.simpleName).find().toList()
+    }
+
+    suspend inline fun <reified T : Any> getById(id: Any): T? {
+        return getDb().getCollection<T>(T::class.java.simpleName).find(
+            eq(id)
+        ).firstOrNull()
+    }
+
+    suspend inline fun <reified T : Any> find(filters: Bson): List<T> {
+        return getDb().getCollection<T>(T::class.java.simpleName).find(
+            filters
+        ).toList()
+    }
+
 
     private val clientPool = mutableMapOf<String?, MongoClient?>()
 }

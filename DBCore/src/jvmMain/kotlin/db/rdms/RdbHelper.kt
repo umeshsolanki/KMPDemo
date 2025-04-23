@@ -6,8 +6,11 @@ import db.rdms.tables.TableRegistry
 import org.jetbrains.exposed.sql.Database
 import org.jetbrains.exposed.sql.SchemaUtils
 import org.jetbrains.exposed.sql.transactions.transaction
+import org.slf4j.LoggerFactory
 
 object RdbHelper {
+
+    val logger = LoggerFactory.getLogger(RdbHelper::class.java)
 
     private const val defaultDb = "kidsTeacher"
     private const val defaultConnection = "jdbc:mysql://localhost:3306/$defaultDb"
@@ -33,14 +36,14 @@ object RdbHelper {
 
     fun createDbAndTables() {
         transaction(getDatabase()) {
-            println("Creating database...")
+            logger.info("Creating database...")
             SchemaUtils.createDatabase(defaultDb)
             println("Database created")
         }
         transaction {
-            print("Creating tables...")
+            logger.info("Creating tables...")
             SchemaUtils.create(*TableRegistry.getAllTables().toTypedArray())
-            println("tables created")
+            logger.info("tables created")
         }
     }
 

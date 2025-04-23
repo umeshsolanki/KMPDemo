@@ -39,16 +39,10 @@ kotlin {
         commonMain {
             dependencies {
                 implementation(projects.common)
-                implementation(libs.bundles.ktorclientbundle)
-                implementation(libs.kotlinx.html)
-                implementation(libs.ktor.client.encoding)
-                implementation(libs.kotlin.stdlib)
-                implementation(libs.kotlinx.json.serialization)
-                implementation(libs.coroutine.core)
-                implementation(libs.ktor.client.core)
-                implementation(libs.kotlinx.json.serialization)
-                implementation(libs.ktor.client.websockets)
-                implementation(libs.ktor.client.logging)
+                implementation(libs.bundles.commonMain)
+//                implementation(libs.exposed.core)
+//                implementation(libs.exposed.dao)
+//                implementation(libs.exposed.kotlin.datetime)
             }
         }
 
@@ -57,27 +51,16 @@ kotlin {
             dependencies {
                 implementation(projects.common)
                 implementation(projects.tts)
-                implementation(libs.kotlinx.html)
-                implementation(libs.kotlin.css)
-                implementation(libs.ktor.clientjs)
-                implementation(libs.coroutine.core)
+                implementation(libs.bundles.jsMain)
             }
         }
         jvmMain {
             dependencies {
                 implementation(projects.common)
                 implementation(projects.tts)
-                implementation(libs.bundles.ktorserverbundle)
-                implementation(libs.ktor.client.encoding)
-                implementation(libs.ktor.client.core)
-                implementation(libs.ktor.client.cio)
-                implementation(libs.ktor.server.cors)
-                implementation(libs.jsoup)
-                implementation(libs.ktor.serialization.gson)
-                implementation(libs.kotlinx.json.serialization)
-                implementation(libs.slf4j)
-                implementation(libs.coroutine.core)
+                api(projects.dbCore)
                 implementation(libs.bundles.allDb)
+                implementation(libs.bundles.ktorserverbundle)
             }
         }
         commonTest {

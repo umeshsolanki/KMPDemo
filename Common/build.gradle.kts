@@ -47,24 +47,13 @@ kotlin {
                 implementation(libs.kotlin.stdlib)
                 implementation(libs.kotlin.css)
                 implementation(libs.coroutine.core)
-                implementation(libs.ktor.clientjs)
+                implementation(libs.bundles.jsMain)
             }
         }
 
         jvmMain {
             dependencies {
                 implementation(libs.bundles.ktorserverbundle)
-                //                implementation("org.slf4j:slf4j-log4j12:1.7.36")
-//
-                implementation(libs.ktor.client.encoding)
-                implementation(libs.ktor.client.core)
-                implementation(libs.ktor.client.cio)
-                implementation(libs.jsoup)
-                implementation(libs.ktor.serialization.gson)
-                implementation(libs.kotlinx.json.serialization)
-                implementation(libs.slf4j)
-                implementation(libs.coroutine.core)
-                implementation(libs.kotlin.css)
             }
         }
 

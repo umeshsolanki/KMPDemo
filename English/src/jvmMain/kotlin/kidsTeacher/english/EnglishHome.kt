@@ -1,6 +1,7 @@
 package kidsTeacher.english
 
 import com.bootstrap.components.cards.Card
+import com.bootstrap.components.layout.Column
 import com.bootstrap.components.layout.HorizontalAlignment
 import com.bootstrap.components.layout.Row
 import com.bootstrap.components.layout.VerticalAlignment
@@ -42,9 +43,18 @@ class EnglishHomeController(route: Route) {
                             vAlignment = VerticalAlignment.CENTER
                         ) {
                             id = "en-content"
-                            Card {
-                                a("/en/words", classes = "text-decoration-none") {
-                                    +"Words"
+                            Column(3) {
+                                Card {
+                                    a("/en/words", classes = "text-decoration-none") {
+                                        +"Words"
+                                    }
+                                }
+                            }
+                            Column(3) {
+                                Card {
+                                    a("/en/words/test", classes = "text-decoration-none") {
+                                        +"Words Test"
+                                    }
                                 }
                             }
                         }
