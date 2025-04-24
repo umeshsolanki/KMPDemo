@@ -11,7 +11,7 @@ import kotlinx.coroutines.launch
 import network.ResponseWrapper
 import network.apiClient
 
-class WordMeaningViewModel {
+class DictionaryViewModel {
 
     val scope = CoroutineScope(Dispatchers.Default)
 

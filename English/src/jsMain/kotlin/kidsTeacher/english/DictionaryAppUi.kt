@@ -27,14 +27,14 @@ import util.setContent
 fun main() {
     window.onload = {
         println("WordMeaningAppUi initialized")
-        WordMeaningAppUi().render()
+        DictionaryAppUi().render()
     }
 }
 
 
-class WordMeaningAppUi {
+class DictionaryAppUi {
     val scope = MainScope()
-    val viewModel = WordMeaningViewModel()
+    val viewModel = DictionaryViewModel()
 
     fun render() {
         setContent("en-words") {
