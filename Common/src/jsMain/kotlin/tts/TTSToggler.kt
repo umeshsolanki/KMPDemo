@@ -2,6 +2,7 @@ package tts
 
 import kotlinx.browser.document
 import kotlinx.browser.window
+import logger.jsLog
 import org.w3c.dom.*
 import util.getElementById
 
@@ -11,18 +12,18 @@ import util.getElementById
  */
 
 fun main() {
-//    println("TTSToggler main function")
+    jsLog("TTSToggler main function")
     document.onreadystatechange = {
-//        println("Document is ready")
+        jsLog("Document is ready")
         if (document.readyState == DocumentReadyState.COMPLETE) {
-            println("TTSToggler initialized")
+            jsLog("TTSToggler initialized")
             setToggleTTSEvents()
         }
     }
 }
 
 fun setToggleTTSEvents() {
-    println("Setting TTS toggle events")
+    jsLog("Setting TTS toggle events")
     var isTTSOn = isTTSEnabled()
     val ttsToggle = getElementById<HTMLElement>("tts-toggle")
     updateTTSToggleButton(isTTSOn)
@@ -34,17 +35,19 @@ fun setToggleTTSEvents() {
 }
 
 fun updateTTSToggleButton(isTTSOn: Boolean) {
+    jsLog("Updating TTS toggle button: $isTTSOn")
     val ttsToggle = getElementById<HTMLElement>("tts-toggle")
     ttsToggle?.innerHTML = if (isTTSOn) {
-        ttsToggle?.classList?.add("bi-volume-up")
+        ttsToggle.classList.add("bi-volume-up")
         "TTS ON"
     } else {
-        ttsToggle?.classList?.add("bi-volume-mute")
+        ttsToggle.classList.add("bi-volume-mute")
         "TTS OFF"
     }
 }
 
 fun setTTSEnabled(on: Boolean) {
+    jsLog("Setting TTS enabled: $on")
     window.localStorage["tts"] = on.toString()
 }
 

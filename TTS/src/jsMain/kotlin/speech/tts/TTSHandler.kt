@@ -1,6 +1,7 @@
 package speech.tts
 
 import kotlinx.browser.window
+import logger.jsLog
 import tts.isTTSEnabled
 
 enum class Lang(val code: String) {
@@ -24,13 +25,18 @@ fun getDefaultUtterance(text: String): SpeechSynthesisUtterance {
 
 object TTSHandler {
 
+    init {
+        jsLog("TTSHandler initialized")
+    }
+
     val synth = window.asDynamic().speechSynthesis
 
     fun speak(text: String, lang: Lang = Lang.ENGLISH) {
-        if (!isTTSEnabled()){
+        jsLog("Speak called with text: $text and lang: ${lang.code}")
+        if (!isTTSEnabled()) {
+            jsLog("TTS is not enabled")
             return
         }
-
         val toSpeak = getDefaultUtterance(text)
         toSpeak.lang = lang.code
         synth.speak(toSpeak)
@@ -38,7 +44,7 @@ object TTSHandler {
 
 
     fun speakNow(text: String, lang: Lang = Lang.ENGLISH) {
-        if (!isTTSEnabled()){
+        if (!isTTSEnabled()) {
             return
         }
         if (synth.speaking) {

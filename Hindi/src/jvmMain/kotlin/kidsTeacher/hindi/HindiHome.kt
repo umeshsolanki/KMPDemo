@@ -8,7 +8,7 @@ import com.bootstrap.dimens.height
 import com.bootstrap.modifier.Modifier
 import com.bootstrap.modifier.classes
 import com.bootstrap.modifier.margin
-import common.NavBar
+import common.addCommonNavigation
 import common.addBootstrapAndCommon
 import io.ktor.server.html.*
 import io.ktor.server.routing.*
@@ -35,7 +35,7 @@ class HindiHomeController(route: Route) {
                     }
                     body(Modifier.height(Height.H_AUTO).classes) {
                         id = "hi-page"
-                        NavBar()
+                        addCommonNavigation()
                         Row(
                             modifier = Modifier.margin(top = 4),
                             hAlignment = HorizontalAlignment.CENTER,

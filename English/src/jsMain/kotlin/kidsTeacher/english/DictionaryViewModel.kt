@@ -8,13 +8,13 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
+import logger.jsLog
 import network.ResponseWrapper
 import network.apiClient
 
 class DictionaryViewModel {
 
     val scope = CoroutineScope(Dispatchers.Default)
-
     val words = MutableStateFlow<List<WordUiData>>(emptyList())
     val groups = MutableStateFlow<List<GroupUiData>>(emptyList())
 
@@ -27,7 +27,7 @@ class DictionaryViewModel {
     }
 
     init {
-        println("WordMeaningViewModel initialized")
+        jsLog("WordMeaningViewModel initialized")
         fetchGroups()
     }
 

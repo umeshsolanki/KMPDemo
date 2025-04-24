@@ -1,6 +1,6 @@
 package com.hitvaani.homepage
 
-import com.bootstrap.components.button.BUTTON
+import com.bootstrap.components.button.Button
 import com.bootstrap.components.layout.Column
 import com.bootstrap.components.layout.Row
 import util.getElementById
@@ -70,7 +70,7 @@ class HomePageUiHandler {
                         id = "UrlInput"
                         placeholder = "Enter URL"
                     }
-                    BUTTON {
+                    Button {
                         id = "SubmitButton"
                         onClickFunction = {
                             sendUrl()

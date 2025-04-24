@@ -9,7 +9,7 @@ import com.bootstrap.modifier.Modifier
 import com.bootstrap.modifier.classes
 import com.bootstrap.modifier.margin
 import com.mongodb.client.model.Filters.eq
-import common.NavBar
+import common.addCommonNavigation
 import common.addBootstrapAndCommon
 import data.*
 import db.nosql.controller.BaseNoSqlCrudController
@@ -100,7 +100,7 @@ class WordsController(route: Route) : BaseNoSqlCrudController<WordUiData>() {
                     }
                     body(Modifier.height(Height.H_AUTO).classes) {
                         id = "en-words-page"
-                        NavBar()
+                        addCommonNavigation()
                         Row(
                             modifier = Modifier.margin(top = 4),
                             hAlignment = HorizontalAlignment.CENTER,

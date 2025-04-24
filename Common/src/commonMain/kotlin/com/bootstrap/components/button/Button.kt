@@ -9,7 +9,7 @@ import kotlinx.html.FlowContent
 import kotlinx.html.button
 
 
-inline fun FlowContent.BUTTON(
+inline fun FlowContent.Button(
     type: ButtonType = ButtonType.BUTTON,
     theme: ButtonTheme = ButtonTheme.PRIMARY,
     size: ButtonSize = ButtonSize.LARGE,
