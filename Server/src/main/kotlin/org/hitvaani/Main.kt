@@ -50,6 +50,7 @@ fun main() {
         routing {
             staticResources("js", "/js")
             staticResources("css", "/css")
+            staticResources("audio", "/audio")
             HomePageController(this)
             KidsLearningController(this)
             MathsController(this)

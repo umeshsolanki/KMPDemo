@@ -137,6 +137,7 @@ class DictionaryAppUi {
                                                         TTSHandler.speak(word.hi.orEmpty(), Lang.HINDI)
                                                     }
                                                 } else {
+//                                                    MediaPlayer.play("/audio/sample2.mp3")
                                                     (it.target as HTMLButtonElement).innerText = "Play All"
                                                 }
                                             }

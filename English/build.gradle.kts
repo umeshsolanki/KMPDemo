@@ -51,6 +51,7 @@ kotlin {
             dependencies {
                 implementation(projects.common)
                 implementation(projects.tts)
+                implementation(projects.player)
                 implementation(libs.bundles.jsMain)
             }
         }

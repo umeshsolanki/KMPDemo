@@ -25,6 +25,7 @@ dependencies {
     implementation(projects.kidsTeacher)
     implementation(projects.maths)
     implementation(projects.dbCore)
+    implementation(projects.player)
     implementation(libs.bundles.allDb)
     implementation(libs.bundles.ktorserverbundle)
     implementation(libs.gson)
