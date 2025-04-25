@@ -43,3 +43,6 @@ enum class Color(val value: String) {
 fun Modifier.hexBgColor(value: String): Modifier {
     return appendStyle(StyleKey.BACKGROUND_COLOR, value)
 }
+fun Modifier.hexTextColor(value: String): Modifier {
+    return appendStyle(StyleKey.COLOR, value)
+}

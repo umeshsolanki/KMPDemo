@@ -1,6 +1,5 @@
 package com.bootstrap.modifier
 
-import kotlinx.html.CommonAttributeGroupFacade
 import kotlinx.html.CoreAttributeGroupFacade
 import kotlinx.html.style
 
@@ -30,7 +29,7 @@ fun Modifier.finalize(clazz: String): String {
     return (this as? ModifierImpl)?.addClass(clazz)?.classes ?: ModifierImpl(clazz).classes
 }
 
-fun CoreAttributeGroupFacade.applyModifier(modifier: Modifier) {
+fun CoreAttributeGroupFacade.applyAttrFromModifier(modifier: Modifier) {
     modifier.style?.let {
         if (it.isNotBlank()) {
 //            println("Setting style= $it")

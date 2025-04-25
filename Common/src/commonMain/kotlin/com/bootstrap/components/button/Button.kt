@@ -2,7 +2,7 @@ package com.bootstrap.components.button
 
 import com.bootstrap.modifier.Modifier
 import com.bootstrap.modifier.appendClass
-import com.bootstrap.modifier.applyModifier
+import com.bootstrap.modifier.applyAttrFromModifier
 import com.bootstrap.modifier.classes
 import kotlinx.html.BUTTON
 import kotlinx.html.FlowContent
@@ -18,7 +18,7 @@ inline fun FlowContent.Button(
 ) {
     val finalModifier = modifier.appendClass(type.value).appendClass(theme.value).appendClass(size.value)
     button(classes = "btn ${finalModifier.classes}") {
-        applyModifier(finalModifier)
+        applyAttrFromModifier(finalModifier)
         block()
     }
 }

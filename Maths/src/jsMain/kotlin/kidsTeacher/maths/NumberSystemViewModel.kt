@@ -1,29 +1,8 @@
 package kidsTeacher.maths
 
-import com.bootstrap.colors.ThemedColor
-import com.bootstrap.colors.backgroundColor
-import com.bootstrap.colors.hexBgColor
-import com.bootstrap.colors.textColor
-import com.bootstrap.components.cards.Card
-import com.bootstrap.components.layout.Column
-import com.bootstrap.components.layout.Row
-import com.bootstrap.components.layout.spaced
-import com.bootstrap.dimens.Height
-import com.bootstrap.dimens.height
-import com.bootstrap.modifier.Modifier
-import com.bootstrap.modifier.classes
-import kotlinx.browser.window
-import kotlinx.html.h1
-import kotlinx.html.js.onClickFunction
-import kotlinx.serialization.Serializable
+import kidsTeacher.maths.data.NumberDictionary
 import kotlinx.serialization.json.Json
-import speech.tts.Lang
-import speech.tts.TTSHandler
-import util.setContent
-
-fun main() {
-    NumberSystemViewModel()
-}
+import logger.jsLog
 
 val numberData: String = """
 {"numbers":{
@@ -51,82 +30,11 @@ val numberData: String = """
 }
 """
 
-@Serializable
-data class NumberDictionary(
-    val numbers: Map<String, NumberData>
-)
-
-@Serializable
-data class NumberData(
-    val en: String, val hi: String
-)
-
 class NumberSystemViewModel {
+
+    val data = Json.decodeFromString<NumberDictionary>(numberData)
+
     init {
-        println("KidsTeacherViewModel initialized")
-        window.onload = {
-            val data = Json.decodeFromString<NumberDictionary>(numberData)
-            setContent("number-system-content") {
-                Row {
-                    Column(3, modifier = Modifier.hexBgColor("#77FF33").spaced(all = 2)) {
-                        Card(
-                            title = "Numbers from 1 to 10, in English",
-                            modifier = Modifier.backgroundColor(ThemedColor.INFO)
-                        ) {
-                            h1(Modifier.textColor(ThemedColor.SUCCESS).classes) {
-                                +"Number System"
-                            }
-                            Row(modifier = Modifier.height(Height.H_100)) {
-                                (1..10).forEach { i ->
-                                    Column(6) {
-                                        h1(Modifier.textColor(ThemedColor.WARNING).classes) {
-                                            +"$i"
-                                        }
-                                    }
-                                }
-                                (11..20).forEach { i ->
-                                    Column(6) {
-                                        h1(Modifier.textColor(ThemedColor.WARNING).classes) {
-                                            +"$i"
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                    Column(9) {
-                        Row {
-                            data.numbers.forEach { (key, value) ->
-                                Column(4, modifier = Modifier.spaced(all = 2)) {
-                                    Card(modifier = Modifier.backgroundColor(ThemedColor.WARNING)) {
-                                        Row {
-                                            Column {
-                                                h1(Modifier.textColor(ThemedColor.INFO).classes) {
-                                                    +key
-                                                    onClickFunction = {
-                                                        println("Clicked on $key")
-                                                        val spelling = value.en.toCharArray().joinToString(" ")
-                                                        TTSHandler.speakNow("$spelling - $key")
-                                                    }
-                                                }
-                                            }
-                                            Column {
-                                                h1(Modifier.textColor(ThemedColor.SUCCESS).classes) {
-                                                    +value.hi
-                                                    onClickFunction = {
-                                                        println("Clicked on $key")
-                                                        TTSHandler.speakNow(value.hi, Lang.HINDI)
-                                                    }
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
+        jsLog("KidsTeacherViewModel initialized")
     }
 }

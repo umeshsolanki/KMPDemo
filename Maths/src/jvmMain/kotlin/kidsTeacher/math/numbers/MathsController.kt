@@ -9,8 +9,8 @@ import com.bootstrap.dimens.height
 import com.bootstrap.modifier.Modifier
 import com.bootstrap.modifier.classes
 import com.bootstrap.modifier.margin
-import common.addCommonNavigation
 import common.addBootstrapAndCommon
+import common.addCommonNavigation
 import io.ktor.server.html.*
 import io.ktor.server.routing.*
 import kotlinx.html.*
@@ -28,7 +28,7 @@ class MathsController(route: Route) {
                 call.respondHtml {
                     head {
                         addBootstrapAndCommon {
-                            script(src = "/js/KidsTeacher.js") {}
+                            script(src = "/js/Maths.js") {}
                         }
                     }
                     body(Modifier.height(Height.H_AUTO).classes) {
@@ -55,7 +55,6 @@ class MathsController(route: Route) {
                 call.respondHtml {
                     head {
                         addBootstrapAndCommon {
-                            script(src = "/js/KidsTeacher.js") {}
                             script(src = "/js/Maths.js") {}
                         }
                     }

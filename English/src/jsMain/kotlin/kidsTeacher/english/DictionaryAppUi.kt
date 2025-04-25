@@ -1,14 +1,18 @@
 package kidsTeacher.english
 
-import com.bootstrap.colors.ThemedColor
-import com.bootstrap.colors.backgroundColor
-import com.bootstrap.colors.textColor
+import com.bootstrap.colors.*
 import com.bootstrap.components.button.Button
 import com.bootstrap.components.cards.Card
+import com.bootstrap.components.html.P
 import com.bootstrap.components.layout.Column
 import com.bootstrap.components.layout.Row
 import com.bootstrap.components.layout.spaced
-import com.bootstrap.modifier.*
+import com.bootstrap.components.listgroups.ButtonListGroupItemAction
+import com.bootstrap.components.listgroups.DivListGroup
+import com.bootstrap.components.loader.Loader
+import com.bootstrap.modifier.Modifier
+import com.bootstrap.modifier.button
+import com.bootstrap.modifier.classes
 import kotlinx.browser.document
 import kotlinx.browser.window
 import kotlinx.coroutines.MainScope
@@ -16,7 +20,6 @@ import kotlinx.coroutines.launch
 import kotlinx.html.h1
 import kotlinx.html.id
 import kotlinx.html.js.onClickFunction
-import kotlinx.html.js.onMouseOverFunction
 import kotlinx.html.p
 import logger.jsLog
 import org.w3c.dom.COMPLETE
@@ -48,13 +51,17 @@ class DictionaryAppUi {
 
     fun render() {
         setContent("en-words") {
-            Row {
-                Column(3, modifier = Modifier.spaced(all = 2)) {
+            Row(Modifier.hexBgColor("#000000")) {
+                Column(3) {
                     id = "groups"
-                    +"Loading..."
+                    Loader()
                 }
                 Column(9) {
                     id = "words"
+                    Loader()
+                    P(Modifier.hexTextColor("#FFFFFF")) {
+                        +"Click on any group to load words"
+                    }
                 }
             }
         }
@@ -74,19 +81,18 @@ class DictionaryAppUi {
         scope.launch {
             viewModel.groups.collect { groups ->
                 setContent("groups") {
-                    groups.forEachIndexed { index, uiData ->
-                        p(Modifier.padding(0).textColor(ThemedColor.SECONDARY).classes) {
-                            applyModifier(Modifier.button())
-                            onClickFunction = {
-                                viewModel.loadWords(uiData)
+                    DivListGroup {
+                        groups.forEachIndexed { index, uiData ->
+                            ButtonListGroupItemAction {
+                                onClickFunction = {
+                                    TTSHandler.speakNow(uiData.en.orEmpty())
+                                    viewModel.loadWords(uiData)
+                                }
+                                +uiData.en.orEmpty()
                             }
-                            onMouseOverFunction = {
-                                jsLog("Mouse over group: ${uiData.en}")
-                                TTSHandler.speakNow(uiData.en.orEmpty())
-                            }
-                            +uiData.en.orEmpty()
                         }
                     }
+
                 }
             }
         }
@@ -95,6 +101,9 @@ class DictionaryAppUi {
     private fun observeWords() {
         scope.launch {
             viewModel.words.collect { words ->
+                if (words.isEmpty()) {
+                    return@collect
+                }
                 setContent("words") {
                     val category = words.firstOrNull()?.group.orEmpty()
                     Row {
@@ -109,25 +118,27 @@ class DictionaryAppUi {
                                         +category
                                     }
                                 }
-                                Column(6) {
-                                    Button {
-                                        +"Play All"
-                                        onClickFunction = {
-                                            if (isPlaying) {
-                                                TTSHandler.cancel()
-                                            }
-                                            isPlaying = isPlaying.not()
-                                            if (isPlaying) {
-                                                (it.target as HTMLButtonElement).innerHTML = "Stop"
-                                                words.forEach { word ->
-                                                    val spelling = word.en?.toCharArray()?.joinToString(" ")
-                                                    TTSHandler.speak(
-                                                        spelling.plus(" ").plus(word.en.orEmpty()).plus(" means ")
-                                                    )
-                                                    TTSHandler.speak(word.hi.orEmpty(), Lang.HINDI)
+                                if (words.isNotEmpty()) {
+                                    Column(6) {
+                                        Button {
+                                            +"Play All"
+                                            onClickFunction = {
+                                                if (isPlaying) {
+                                                    TTSHandler.cancel()
                                                 }
-                                            } else {
-                                                (it.target as HTMLButtonElement).innerText = "Play All"
+                                                isPlaying = isPlaying.not()
+                                                if (isPlaying) {
+                                                    (it.target as HTMLButtonElement).innerHTML = "Stop"
+                                                    words.forEach { word ->
+                                                        val spelling = word.en?.toCharArray()?.joinToString(" ")
+                                                        TTSHandler.speak(
+                                                            spelling.plus(" ").plus(word.en.orEmpty()).plus(" means ")
+                                                        )
+                                                        TTSHandler.speak(word.hi.orEmpty(), Lang.HINDI)
+                                                    }
+                                                } else {
+                                                    (it.target as HTMLButtonElement).innerText = "Play All"
+                                                }
                                             }
                                         }
                                     }
