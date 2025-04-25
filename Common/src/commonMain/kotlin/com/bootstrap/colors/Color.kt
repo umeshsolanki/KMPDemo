@@ -22,7 +22,7 @@ enum class ThemedColor(val value: String) {
 }
 
 
-enum class HexColor(val code: String) {
+enum class Color(val code: String) {
     WHITE("#FFFFFF"), TRANSPARENT("#00000000"), BLACK("#000000"), GRAY("#808080"), GRAY_DARK("#343a40"), BLUE(
         "#007bff"
     ),
@@ -102,7 +102,7 @@ fun Modifier.hexBgColor(value: String): Modifier {
     return appendStyle(StyleKey.BACKGROUND_COLOR, value)
 }
 
-fun Modifier.hexBgColor(color: HexColor): Modifier {
+fun Modifier.hexBgColor(color: Color): Modifier {
     return appendStyle(StyleKey.BACKGROUND_COLOR, color.code)
 }
 
@@ -110,6 +110,6 @@ fun Modifier.hexTextColor(value: String): Modifier {
     return appendStyle(StyleKey.COLOR, value)
 }
 
-fun Modifier.hexTextColor(color: HexColor): Modifier {
+fun Modifier.hexTextColor(color: Color): Modifier {
     return appendStyle(StyleKey.COLOR, color.code)
 }

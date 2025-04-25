@@ -59,7 +59,7 @@ class DictionaryAppUi {
                 Column(9) {
                     id = "words"
                     Loader()
-                    P(Modifier.hexTextColor("#FFFFFF")) {
+                    P(Modifier.hexTextColor(Color.WHITE)) {
                         +"Click on any group to load words"
                     }
                 }
