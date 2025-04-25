@@ -51,7 +51,7 @@ class DictionaryAppUi {
 
     fun render() {
         setContent("en-words") {
-            Row(Modifier.hexBgColor("#000000")) {
+            Row(Modifier) {
                 Column(3) {
                     id = "groups"
                     Loader()

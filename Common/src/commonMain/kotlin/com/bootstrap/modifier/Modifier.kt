@@ -148,7 +148,7 @@ enum class StyleKey(val value: String) {
 }
 
 class ModifierImpl(classes: String) : Modifier {
-    private var classList: MutableList<String?> = mutableListOf()
+    private var classList: MutableSet<String?> = mutableSetOf()
     var _styles: MutableList<Pair<StyleKey, Any>> = mutableListOf()
     var _attributes: MutableList<Pair<String, Any>> = mutableListOf()
 

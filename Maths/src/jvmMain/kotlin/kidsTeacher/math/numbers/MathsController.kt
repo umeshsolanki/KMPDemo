@@ -1,6 +1,9 @@
 package kidsTeacher.math.numbers
 
+import com.bootstrap.colors.Color
+import com.bootstrap.colors.backgroundColor
 import com.bootstrap.components.cards.Card
+import com.bootstrap.components.html.Body
 import com.bootstrap.components.layout.HorizontalAlignment
 import com.bootstrap.components.layout.Row
 import com.bootstrap.components.layout.VerticalAlignment
@@ -31,7 +34,7 @@ class MathsController(route: Route) {
                             script(src = "/js/Maths.js") {}
                         }
                     }
-                    body(Modifier.height(Height.H_AUTO).classes) {
+                    Body(Modifier.height(Height.H_AUTO).backgroundColor(Color.GRAY_DARK)) {
                         id = "maths-home-page"
                         addCommonNavigation()
                         Row(

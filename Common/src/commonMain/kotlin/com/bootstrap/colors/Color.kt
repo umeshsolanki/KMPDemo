@@ -98,11 +98,11 @@ enum class Color(val code: String) {
     CYAN_600("#138496"), CYAN_700("#117a8b"), CYAN_800("#0f6f7d"), CYAN_900("#0c646f"),
 }
 
-fun Modifier.hexBgColor(value: String): Modifier {
+fun Modifier.backgroundColor(value: String): Modifier {
     return appendStyle(StyleKey.BACKGROUND_COLOR, value)
 }
 
-fun Modifier.hexBgColor(color: Color): Modifier {
+fun Modifier.backgroundColor(color: Color): Modifier {
     return appendStyle(StyleKey.BACKGROUND_COLOR, color.code)
 }
 

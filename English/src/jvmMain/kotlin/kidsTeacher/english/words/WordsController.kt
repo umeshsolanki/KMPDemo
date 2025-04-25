@@ -1,23 +1,24 @@
 package kidsTeacher.english.words
 
+import com.bootstrap.colors.Color
+import com.bootstrap.colors.backgroundColor
+import com.bootstrap.components.html.Body
 import com.bootstrap.components.layout.HorizontalAlignment
 import com.bootstrap.components.layout.Row
 import com.bootstrap.components.layout.VerticalAlignment
 import com.bootstrap.dimens.Height
 import com.bootstrap.dimens.height
 import com.bootstrap.modifier.Modifier
-import com.bootstrap.modifier.classes
 import com.bootstrap.modifier.margin
 import com.mongodb.client.model.Filters.eq
-import common.addCommonNavigation
 import common.addBootstrapAndCommon
+import common.addCommonNavigation
 import data.*
 import db.nosql.controller.BaseNoSqlCrudController
 import io.ktor.server.html.*
 import io.ktor.server.request.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
-import kotlinx.html.body
 import kotlinx.html.head
 import kotlinx.html.id
 import kotlinx.html.script
@@ -98,7 +99,7 @@ class WordsController(route: Route) : BaseNoSqlCrudController<WordUiData>() {
                             script(src = "/js/English.js") {}
                         }
                     }
-                    body(Modifier.height(Height.H_AUTO).classes) {
+                    Body(Modifier.height(Height.H_AUTO).backgroundColor(Color.GRAY_DARK)) {
                         id = "en-words-page"
                         addCommonNavigation()
                         Row(
